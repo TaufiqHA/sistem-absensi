@@ -4,23 +4,23 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
-use App\Models\Students;
+use App\Models\Teachers;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\StudentsResource\Pages;
+use App\Filament\Resources\TeachersResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\StudentsResource\RelationManagers;
+use App\Filament\Resources\TeachersResource\RelationManagers;
 
-class StudentsResource extends Resource
+class TeachersResource extends Resource
 {
-    protected static ?string $model = Students::class;
+    protected static ?string $model = Teachers::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
 
-    protected static ?string $navigationLabel = 'Siswa';
+    protected static ?string $navigationLabel = 'Guru';
 
     public static function form(Form $form): Form
     {
@@ -28,19 +28,20 @@ class StudentsResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('password')
-                    ->password()
-                    ->required()
                     ->maxLength(255)
-                    ->dehydrateStateUsing(fn (string $state): string => Hash::make($state)),
-                Forms\Components\TextInput::make('nis')
+                    ->label('Nama Guru'),
+                Forms\Components\TextInput::make('nip')
                     ->required()
-                    ->maxLength(255),
+                    ->label('NIP'),
+                Forms\Components\TextInput::make('email')
+                    ->required()
+                    ->email()
+                    ->label('Email'),
+                Forms\Components\TextInput::make('password')
+                    ->required()
+                    ->password()
+                    ->label('Password')
+                    ->dehydrateStateUsing(fn (string $state): string => Hash::make($state)),
             ]);
     }
 
@@ -49,13 +50,11 @@ class StudentsResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->label('Nama Siswa')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('nis')
-                    ->label('NIS')
-                    ->searchable(),
+                    ->searchable()
+                    ->label('Nama Guru'),
+                Tables\Columns\TextColumn::make('nip')
+                    ->searchable()
+                    ->label('NIP'),
             ])
             ->filters([
                 //
@@ -63,7 +62,7 @@ class StudentsResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
-            ->emptyStateHeading('Tidak Ada Siswa')
+            ->emptyStateHeading('Tiadak Ada Guru')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
@@ -81,9 +80,9 @@ class StudentsResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListStudents::route('/'),
-            'create' => Pages\CreateStudents::route('/create'),
-            'edit' => Pages\EditStudents::route('/{record}/edit'),
+            'index' => Pages\ListTeachers::route('/'),
+            'create' => Pages\CreateTeachers::route('/create'),
+            'edit' => Pages\EditTeachers::route('/{record}/edit'),
         ];
     }
 }

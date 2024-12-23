@@ -18,6 +18,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies;
 use App\Filament\Resources\AcademicYearsResource;
 use App\Filament\Resources\ClassesResource;
 use App\Filament\Resources\LocationsResource;
+use App\Filament\Resources\TeachersResource;
 use Filament\Http\Middleware\AuthenticateSession;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -76,9 +77,10 @@ class AdminPanelProvider extends PanelProvider
                             ->items([
                                 ...ClassesResource::getNavigationItems(),
                             ]),
-                        NavigationGroup::make('Manajemen Siswa')
+                        NavigationGroup::make('Manajemen User')
                             ->items([
                                 ...StudentsResource::getNavigationItems(),
+                                ...TeachersResource::getNavigationItems(),
                             ]),
                         NavigationGroup::make('Pengaturan')
                             ->items([
