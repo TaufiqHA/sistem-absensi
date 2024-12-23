@@ -2,33 +2,32 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\AcademicYearsResource\Pages;
-use App\Filament\Resources\AcademicYearsResource\RelationManagers;
-use App\Models\AcademicYears;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Models\AcademicYears;
+use Filament\Resources\Resource;
+use App\Filament\Resources\AcademicYearsResource\Pages;
 
 class AcademicYearsResource extends Resource
 {
     protected static ?string $model = AcademicYears::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar-date-range';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('year_start')
+                Forms\Components\DatePicker::make('year_start')
                     ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('year_end')
+                    ->label('Tahun Mulai')
+                    ->native(false),
+                Forms\Components\DatePicker::make('year_end')
                     ->required()
-                    ->numeric(),
+                    ->label('Tahun Selesai')
+                    ->native(false),
             ]);
     }
 
@@ -57,6 +56,7 @@ class AcademicYearsResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
+            ->emptyStateHeading('Tidak Ada Tahun Ajaran')
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),

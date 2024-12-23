@@ -9,4 +9,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAcademicYears extends CreateRecord
 {
     protected static string $resource = AcademicYearsResource::class;
+    protected static ?string $title = 'Tambah Tahun Ajaran Baru';
 }

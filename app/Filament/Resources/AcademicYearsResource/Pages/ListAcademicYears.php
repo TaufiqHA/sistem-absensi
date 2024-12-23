@@ -9,11 +9,13 @@ use Filament\Resources\Pages\ListRecords;
 class ListAcademicYears extends ListRecords
 {
     protected static string $resource = AcademicYearsResource::class;
+    protected static ?string $title = 'Tahun Ajaran';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+                ->label('Tambah Tahun Ajaran'),
         ];
     }
 }

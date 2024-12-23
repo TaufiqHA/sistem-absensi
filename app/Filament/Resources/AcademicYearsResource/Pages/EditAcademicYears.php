@@ -9,11 +9,13 @@ use Filament\Resources\Pages\EditRecord;
 class EditAcademicYears extends EditRecord
 {
     protected static string $resource = AcademicYearsResource::class;
+    protected static ?string $title = 'Edit Tahun Ajaran';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+                ->label('Hapus'),
         ];
     }
 }
