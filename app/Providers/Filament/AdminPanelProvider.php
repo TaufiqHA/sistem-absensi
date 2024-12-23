@@ -15,6 +15,7 @@ use Filament\Navigation\NavigationBuilder;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use App\Filament\Resources\AcademicYearsResource;
+use App\Filament\Resources\LocationsResource;
 use Filament\Http\Middleware\AuthenticateSession;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
@@ -69,9 +70,10 @@ class AdminPanelProvider extends PanelProvider
                             ->url(fn (): string => Dashboard::getUrl()),
                     ])
                     ->groups([
-                        NavigationGroup::make('Manajemen Tahun Ajaran')
+                        NavigationGroup::make('Pengaturan')
                             ->items([
                                 ...AcademicYearsResource::getNavigationItems(),
+                                ...LocationsResource::getNavigationItems(),
                             ]),
                     ]);
             });;
