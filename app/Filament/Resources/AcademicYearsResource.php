@@ -16,6 +16,8 @@ class AcademicYearsResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-calendar-date-range';
 
+    protected static ?string $navigationLabel = 'Tahun Ajaran';
+
     public static function form(Form $form): Form
     {
         return $form

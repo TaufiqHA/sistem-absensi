@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Resources\StudentsResource;
 use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
@@ -74,6 +75,10 @@ class AdminPanelProvider extends PanelProvider
                         NavigationGroup::make('Manajemen Kelas')
                             ->items([
                                 ...ClassesResource::getNavigationItems(),
+                            ]),
+                        NavigationGroup::make('Manajemen Siswa')
+                            ->items([
+                                ...StudentsResource::getNavigationItems(),
                             ]),
                         NavigationGroup::make('Pengaturan')
                             ->items([
