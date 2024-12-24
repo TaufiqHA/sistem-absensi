@@ -3,12 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ClassesResource\Pages;
-use App\Filament\Resources\ClassesResource\RelationManagers;
+use App\Models\academicYears;
 use App\Models\Classes;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class ClassesResource extends Resource
@@ -25,8 +26,12 @@ class ClassesResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255)
+                    ->maxLength(length: 255)
                     ->label('Nama Kelas'),
+                Forms\Components\Select::make('academicYears_id')
+                    ->required()
+                    ->label('Tahun Ajaran')
+                    ->options(academicYears::all()->pluck('name', 'id')),
             ]);
     }
 
@@ -34,9 +39,11 @@ class ClassesResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
+                TextColumn::make('name')
                     ->label('Nama Kelas')
                     ->searchable(),
+                TextColumn::make('academicYears.name')
+                    ->label('Tahun Ajaran'),
             ])
             ->filters([
                 //

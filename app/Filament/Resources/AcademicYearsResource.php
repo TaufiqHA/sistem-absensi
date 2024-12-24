@@ -22,6 +22,8 @@ class AcademicYearsResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('name')
+                    ->label('Tahun Ajaran'),
                 Forms\Components\DatePicker::make('year_start')
                     ->required()
                     ->label('Tahun Mulai')
@@ -30,27 +32,22 @@ class AcademicYearsResource extends Resource
                     ->required()
                     ->label('Tahun Selesai')
                     ->native(false),
-            ]);
+            ])
+            ->columns(1);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('name')
+                    ->label('Tahun Ajaran'),
                 Tables\Columns\TextColumn::make('year_start')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('year_end')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('classes', function (Blueprint $table) {
             $table->id();
             $table->string('name'); // String column for name
+            $table->foreignId('academicYears_id')->constrained('academic_years')->cascadeOnDelete()->cascadeOnUpdate();
             $table->timestamps();
         });
     }
